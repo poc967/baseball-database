@@ -6,7 +6,7 @@ CREATE TABLE teams (
 	id INT AUTO_INCREMENT,
     teamLocation VARCHAR(255),
     teamMascot VARCHAR(255),
-    teamAbbrevation VARCHAR(3),
+    teamAbbreviation VARCHAR(3),
     league ENUM('AL', 'NL'),
     division ENUM('West', 'East', 'Central') NOT NULL,
     createdAt DATETIME DEFAULT NOW(),
@@ -26,8 +26,8 @@ CREATE TABLE games (
 	updatedAt DATETIME DEFAULT NOW(),
 	deletedAt DATETIME,
 	PRIMARY KEY(id),
-	FOREIGN KEY (homeTeamId) REFERENCEs teams(id),
-	FOREIGN KEY(awayTeamId) REFERENCEs teams(id)
+	FOREIGN KEY (homeTeamId) REFERENCES teams(id),
+	FOREIGN KEY(awayTeamId) REFERENCES teams(id)
 );
     
 CREATE TABLE players (
@@ -38,8 +38,11 @@ CREATE TABLE players (
     throws ENUM('L', 'R', 'B'),
     hits ENUM('L', 'R', 'B'),
     teamId INT NOT NULL,
+    createdAt DATETIME DEFAULT NOW(),
+	updatedAt DATETIME DEFAULT NOW(),
+	deletedAt DATETIME,
     PRIMARY KEY (id),
-    FOREIGN KEY (teamId) REFERENCES teams(id)
+    FOREIGN KEY (teamId) REFERENCES teams (id)
 );
 
 CREATE TABLE hitterStats (
